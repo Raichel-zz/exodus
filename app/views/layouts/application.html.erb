@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset=utf-8>
+        <title><%= content_for?(:title) ? yield(:title) : "Chompale" %></title>
+        <%= favicon_link_tag 'favicon.ico' %>
+        <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Chompale' %>">
+        <%= stylesheet_link_tag "application", :media => "all" %>
+        <%= javascript_include_tag "application" %>
+
+        <!-- Goodle analytics -->
+        <script>
+			(function(i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] ||
+				function() {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+			ga('create', 'UA-44699787-1', 'chompale.com');
+			ga('send', 'pageview');
+
+        </script>
+
+        <script language="javascript">
+            <% if user_signed_in? %>
+            	current_user = {id:"<%= current_user.id%>", email:"<%= current_user.email %>"};
+            <% end %></script>
+        <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
+    </head>
+    <body>
+
+        <!-- Facebook JS API -->
+        <div id="fb-root"></div>
+        <!-- Facebook connect script -->
+        <script type="text/javascript">
+            			window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({appId      : '<%= Facebook::APP_ID%>', // App ID from the App Dashboard
+				channelUrl : '//www.chompale.COM/channel.html', // Channel File for x-domain communication
+				status     : true, // check the login status upon init?
+				cookie     : true, // set sessions cookies to allow your server to access the session?
+				xfbml      : true  // parse XFBML tags on this page?
+				});
+
+				// Additional initialization code such as adding Event Listeners goes here
+
+				};
+
+				(function(d, debug){
+				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement('script'); js.id = id; js.async = true;
+				js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+				ref.parentNode.insertBefore(js, ref);
+				}(document, /*debug*/ false));
+
+				$(function() {
+				$('#facebook-connect').click(function(e) {
+				e.preventDefault();
+
+				FB.login(function(response) {
+				if (response.authResponse) {
+				// since we have cookies enabled, this request will allow omniauth to parse
+				// out the auth code from the signed request in the fbsr_XXX cookie
+				$.getJSON('<%= user_omniauth_callback_path(:facebook)%>', function(data) {
+				//initialize current_user
+				setCurrentUser(data.user);
+            // 'data' contains a 'user' object with 'email' and 'name' in it.
+            //[PUT YOUR POST-LOGIN CODE HERE]
+            });
+            }
+            }, { scope: ['email'] });
+            });
+            });
+        </script>
+        <!-- End FB JS API -->
+
+        <header class="container"></header>
+        <main role="main">
+            <%= yield %>
+        </main>
+    </body>
+</html>

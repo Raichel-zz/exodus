@@ -1,0 +1,25 @@
+<%= @page_title = 'New Theme' %>
+<nav>
+    <p>
+        <%= link_to("<< Back to List", {:action => "list"}, :class => "back-link")%>
+    </p>
+</nav>
+
+<div>
+    <%= form_for(:theme, :url => {action: 'create'}) do |t| %>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td><%= t.text_field(:name) %></td>
+        </tr>
+        <tr>
+            <th>File URL</th>
+            <td><%= t.text_field(:file_url) %></td>
+        </tr>
+    </table>
+
+    <div class="form-buttons">
+        <%= submit_tag("Create Theme")%>
+    </div>
+    <% end %>
+</div>

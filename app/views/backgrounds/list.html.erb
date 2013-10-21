@@ -1,0 +1,25 @@
+<%= @page_title = 'Backgrounds list' %>
+<nav>
+    <%= link_to("Create new Background", {:action => "new"}, :class => "action new")%></td>
+</nav>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>File URL</th>
+        <th>Action</th>
+    </tr>
+    <% @backgrounds.each do |background| %>
+    <tr>
+        <td><%= background.id%></td>
+        <td><%= background.name%></td>
+        <td><%= image_tag(background.file_url, :size => "60x60", :Alt => background.name)%></td>
+        <td>
+        <div>
+            <%= link_to("Show", {:action => "show", :id => background.id}, :class => "action show")%>
+            <%= link_to("Edit", {:action => "edit", :id => background.id}, :class => "action edit")%>
+            <%= link_to("Delete", {:action => "delete", :id => background.id}, :class => "action delete")%>
+        </div></td>
+    </tr>
+    <% end %>
+</table>

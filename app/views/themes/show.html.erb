@@ -1,0 +1,18 @@
+<%= @page_title = 'Theme details' %>
+<nav>
+    <p>
+        <%= link_to("<< Back to List", {:action => "list"}, :class => "back-link")%>
+    </p>
+</nav>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td><%= @theme.name%></td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td><%=@theme.file_url%></td>
+        </tr>
+    </table>
+</div>

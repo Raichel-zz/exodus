@@ -1,0 +1,25 @@
+<%= @page_title = 'Edit Background' %>
+<nav>
+    <p>
+        <%= link_to("<< Back to List", {:action => "list"}, :class => "back-link")%>
+    </p>
+</nav>
+
+<div>
+    <%= form_for(:background, :url => {:action => 'update', :id => @background.id}) do |t| %>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td><%= t.text_field(:name) %></td>
+        </tr>
+        <tr>
+            <th>File URL</th>
+            <td><%= t.text_field(:file_url) %></td>
+        </tr>
+    </table>
+
+    <div class="form-buttons">
+        <%= submit_tag("Update Background")%>
+    </div>
+    <% end %>
+</div>

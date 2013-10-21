@@ -1,0 +1,23 @@
+<%= @page_title = 'Delete confirmation' %>
+<nav>
+    <p>
+        <%= link_to("<< Back to List", {:action => "list"}, :class => "back-link")%>
+    </p>
+</nav>
+
+<div>
+    <%= form_for(:theme, :url => {action: 'destroy', id: @theme.id}) do |t| %>
+
+    <p>
+        Are you sure you want to delete this Theme?
+    </p>
+
+    <p>
+        <%= @theme.name%>
+    </p>
+
+    <div class="form-buttons">
+        <%= submit_tag("Delete Theme")%>
+    </div>
+    <% end %>
+</div>

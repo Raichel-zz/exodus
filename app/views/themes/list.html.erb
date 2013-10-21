@@ -1,0 +1,28 @@
+<nav>
+    <%= link_to("Create new Theme", {:action => "new"}, :class => "action new")%></td>
+</nav>
+
+<input id="nameFilterInput" class="roundedInputText search-box" type="text" onKeyUp="filterAds()" placeholder="Theme Name"/>
+
+<div id="themesTileContainer" >
+
+    <% @themes.each do |theme| %>
+
+    <div class="galeryTheme" alt="<%= theme.name.downcase%>" >
+
+        <div class="galeryThemeImageCrop">
+            <%= image_tag(theme.file_url, :size => "60x60", :Alt => theme.name)%>
+        </div>
+        <div class="galeryThemeName">
+            <span class="galeryThemeNameOverlay"> <%= theme.name%> </span>
+        </div>
+        <div class="galeryAdButtons">
+            <%= link_to("Show", {:action => "show", :id => theme.id}, :class => "action show")%>
+            <%= link_to("Edit", {:action => "edit", :id => theme.id}, :class => "action edit")%>
+            <%= link_to("Delete", {:action => "delete", :id => theme.id}, :class => "action delete")%>
+        </div>
+    </div>
+
+    <% end %>
+
+</div>
