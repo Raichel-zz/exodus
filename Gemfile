@@ -9,25 +9,18 @@ gem 'rails', '4.0.0'
 gem 'pg'
 
 #Twitter Bootstrap css framework
-gem 'bootstrap-sass'
+gem 'twitter-bootstrap-rails'
 
 #Device for user authentication
 gem 'devise'
 gem 'omniauth-facebook', '1.4.0'
 gem 'koala'
 
-#Payment processing
-gem 'activemerchant'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -54,4 +47,5 @@ group :production do
     gem 'rails_12factor'
 end
 
-#gem "mocha", group: :test
+# Gem sucker is the Amazon product advertising API
+gem 'sucker'

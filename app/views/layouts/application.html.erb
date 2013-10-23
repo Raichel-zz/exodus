@@ -1,91 +1,260 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset=utf-8>
-        <title><%= content_for?(:title) ? yield(:title) : "Chompale" %></title>
-        <%= favicon_link_tag 'favicon.ico' %>
-        <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Chompale' %>">
+    
+        <!-- start: Meta -->
+        <meta charset="utf-8">
+        <title><%= content_for?(:title) ? yield(:title) : "The Best Online Juicer Catalog" %></title>
+        <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Juicer Catalog' %>">
+        <meta name="keywords" content="" />
+        <meta name="author" content=""/>
+        <!-- end: Meta -->
+        
+        <!-- start: Mobile Specific -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- end: Mobile Specific -->
+        
+        <!-- start: CSS -->
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
         <%= stylesheet_link_tag "application", :media => "all" %>
-        <%= javascript_include_tag "application" %>
-
-        <!-- Goodle analytics -->
-        <script>
-			(function(i, s, o, g, r, a, m) {
-				i['GoogleAnalyticsObject'] = r;
-				i[r] = i[r] ||
-				function() {
-					(i[r].q = i[r].q || []).push(arguments)
-				}, i[r].l = 1 * new Date();
-				a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-				a.async = 1;
-				a.src = g;
-				m.parentNode.insertBefore(a, m)
-			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-			ga('create', 'UA-44699787-1', 'chompale.com');
-			ga('send', 'pageview');
-
-        </script>
-
-        <script language="javascript">
-            <% if user_signed_in? %>
-            	current_user = {id:"<%= current_user.id%>", email:"<%= current_user.email %>"};
-            <% end %></script>
-        <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
+        
+        <!--[if lt IE 9 ]>
+          <link href="css/styleIE.css" rel="stylesheet">
+        <![endif]-->
+        
+        <!--[if IE 9 ]>
+          <link href="css/styleIE9.css" rel="stylesheet">
+        <![endif]-->
+        
+        <!-- end: CSS -->
+        
     </head>
     <body>
-
+        
         <!-- Facebook JS API -->
         <div id="fb-root"></div>
-        <!-- Facebook connect script -->
-        <script type="text/javascript">
-            			window.fbAsyncInit = function() {
-            // init the FB JS SDK
-            FB.init({appId      : '<%= Facebook::APP_ID%>', // App ID from the App Dashboard
-				channelUrl : '//www.chompale.COM/channel.html', // Channel File for x-domain communication
-				status     : true, // check the login status upon init?
-				cookie     : true, // set sessions cookies to allow your server to access the session?
-				xfbml      : true  // parse XFBML tags on this page?
-				});
+                 
+        <!--start: Header -->
+        <header>   
+            <!--start: Container  -->
+            <div class="container">
+            
+                <!--start: Navigation -->
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+                        <a class="brand" href="index.html">Juicers Catalog</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li class="<%= 'active' if current_page?(root_path) %>">
+                                    <%= link_to('Home', root_path)  %>
+                                </li>
+                                <li class="<%= 'active' if current_page?(root_path) %>">
+                                    <a href="about.html">About</a>
+                                </li>      
+                                <li class="<%= 'active' if current_page?(new_user_session_path) %>">
+                                    <%= link_to('Login', new_user_session_path)  %> 
+                                </li>
+                                <li class="<%= 'active' if current_page?(new_user_registration_path) %>">
+                                    <%= link_to('Register', new_user_registration_path)  %>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--end: Navigation -->
+            
+            </div>
+            <!--end: Container-->
 
-				// Additional initialization code such as adding Event Listeners goes here
+        </header>
+        <!--end: Header-->
 
-				};
-
-				(function(d, debug){
-				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement('script'); js.id = id; js.async = true;
-				js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-				ref.parentNode.insertBefore(js, ref);
-				}(document, /*debug*/ false));
-
-				$(function() {
-				$('#facebook-connect').click(function(e) {
-				e.preventDefault();
-
-				FB.login(function(response) {
-				if (response.authResponse) {
-				// since we have cookies enabled, this request will allow omniauth to parse
-				// out the auth code from the signed request in the fbsr_XXX cookie
-				$.getJSON('<%= user_omniauth_callback_path(:facebook)%>', function(data) {
-				//initialize current_user
-				setCurrentUser(data.user);
-            // 'data' contains a 'user' object with 'email' and 'name' in it.
-            //[PUT YOUR POST-LOGIN CODE HERE]
-            });
-            }
-            }, { scope: ['email'] });
-            });
-            });
-        </script>
-        <!-- End FB JS API -->
-
-        <header class="container"></header>
         <main role="main">
             <%= yield %>
         </main>
+        
+        <!-- start: Footer -->
+        <div id="footer">
+        
+            <!-- start: Container -->
+            <div class="container">
+        
+                <!-- start: Row -->
+                <div class="row-fluid">
+        
+                    <!-- start: About -->
+                    <div class="span3">
+        
+                        <h3>creativeLabs</h3>
+        
+                        <p>
+                            <i class="icon-map-marker"></i> 30 South Park Avenue
+                        </p>
+                        <p>
+                            <i class="icon-map-marker"></i> San Francisco, CA 94108, USA
+                        </p>
+                        <p>
+                            <i class="icon-phone"></i> Phone: (123) 456-7890
+                        </p>
+                        <p>
+                            <i class="icon-print"></i> Fax: +08 (123) 456-7890
+                        </p>
+                        <p>
+                            <i class="icon-envelope"></i> Email: contact@companyname.com
+                        </p>
+                        <p>
+                            <i class="icon-globe"></i> Web: companyname.com
+                        </p>
+        
+                    </div>
+                    <!-- end: About -->
+        
+                    <!-- start: Latest Tweets -->
+                    <div class="span3">
+        
+                        <h3>Latest Tweets</h3>
+        
+                        <ul id="twitter">
+        
+                        </ul>
+        
+                        <div class="clear"></div>
+        
+                    </div>
+                    <!-- end: Latest Tweets -->
+        
+                    <!-- start: Photo Stream -->
+                    <div class="span3">
+        
+                        <h3>Flickr Photo Stream</h3>
+                        <div class="flickr-widget">
+                            <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=12&display=latest&size=s&layout=x&source=user&user=29609591@N08"></script>
+                            <div class="clear"></div>
+                        </div>
+        
+                    </div>
+                    <!-- end: Photo Stream -->
+        
+                    <!-- start: Follow Us -->
+                    <div class="span3">
+        
+                        <h3>Follow Us</h3>
+        
+                        <a href="#" class="social-dribbble"></a>
+                        <a href="#" class="social-twitter"></a>
+                        <a href="#" class="social-flickr"></a>
+                        <a href="#" class="social-facebook"></a>
+                        <a href="#" class="social-linkedin"></a>
+                        <a href="#" class="social-vimeo"></a>
+                        <a href="#" class="social-youtube"></a>
+                        <a href="#" class="social-delicious"></a>
+                        <a href="#" class="social-rss"></a>
+                        <a href="#" class="social-picassa"></a>
+                        <a href="#" class="social-deviantart"></a>
+                        <a href="#" class="social-technorati"></a>
+                        <a href="#" class="social-stumbleupon"></a>
+                        <a href="#" class="social-appstore"></a>
+                        <a href="#" class="social-paypal"></a>
+                        <a href="#" class="social-myspace"></a>
+                        <a href="#" class="social-pinterest"></a>
+                        <a href="#" class="social-soundcloud"></a>
+                        <a href="#" class="social-behance"></a>
+                        <a href="#" class="social-instagram"></a>
+                        <a href="#" class="social-googleplus"></a>
+        
+                    </div>
+                    <!-- end: Follow Us -->
+        
+                </div>
+                <!-- end: Row -->
+        
+            </div>
+            <!-- end: Container  -->
+        
+        </div>
+        <!-- end: Footer -->
+        
     </body>
+    
+    <!-- javascript loads at the bottom so pages load faster -->
+    <!-- start: javascript -->
+    <%= javascript_include_tag "application" %>
+    <!-- Goodle analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] ||
+            function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    
+        ga('create', 'UA-44699787-1', 'chompale.com');
+        ga('send', 'pageview');
+    
+    </script>
+    <!-- keep authenticity token -->
+    <script language="javascript">
+        <% if user_signed_in? %>
+            current_user = {id:"<%= current_user.id%>", email:"<%= current_user.email %>"};
+        <% end %></script>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
+    <!-- end: javascript -->
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <!-- Facebook connect script -->
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({appId      : '<%= Facebook::APP_ID%>', // App ID from the App Dashboard
+                channelUrl : '//www.chompale.COM/channel.html', // Channel File for x-domain communication
+                status     : true, // check the login status upon init?
+                cookie     : true, // set sessions cookies to allow your server to access the session?
+                xfbml      : true  // parse XFBML tags on this page?
+            });
+            // Additional initialization code such as adding Event Listeners goes here
+        };
+    
+        (function(d, debug){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document, /*debug*/ false));
+    
+        $(function() {
+            $('.facebook-connect').click(function(e) {
+                e.preventDefault();
+    
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        // since we have cookies enabled, this request will allow omniauth to parse
+                        // out the auth code from the signed request in the fbsr_XXX cookie
+                        $.getJSON('<%= user_omniauth_callback_path(:facebook)%>', function(data) {
+                            //initialize current_user
+                            setCurrentUser(data.user);
+                            // 'data' contains a 'user' object with 'email' and 'name' in it.
+                            //[PUT YOUR POST-LOGIN CODE HERE]
+                        });
+                    }
+                }, { scope: ['email'] });
+                return false;
+            });
+        });
+    </script>
+    <!-- End FB JS API -->
+        
 </html>

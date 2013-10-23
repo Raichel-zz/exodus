@@ -1,187 +1,248 @@
-<div id="backgroundDiv"></div>
+<% content_for :title, "The Best Online Juicer Catalog" %>
 
-<div class="container main-container">
+<!--start: Container -->
+<div class="container">
 
-    <div class="navbar" style="visibility: hidden">
-        <div class="container">
-            <ul class="nav">
-                <!-- <li>
-                <a id="editUserAccountLink" href='<%= edit_user_registration_path%>'></a>
-                </li> -->
-                <li class="onlyForLoggedInUser text-right">
-                    <a id="welcomeGreeting"></a>
-                </li>
-                <li class="onlyForLoggedInUser text-right">
-                    <a onclick="logout()" style="cursor: pointer; padding:10px 0px">יציאה</a>
-                </li>
-                <li class="onlyForLoggedOutUser text-right">
-                    <a onclick="showLogin()" style="cursor: pointer">כניסה</a>
-                </li>
-                <li class="onlyForLoggedOutUser text-right">
-                    <a onclick="showSignup()" style="cursor: pointer">הרשמה</a>
-                </li>
-                <li class="onlyForLoggedOutUser text-right">
-                    <div id="facebook-connect"></div>
-                </li>
+    <!--start: Wrapper-->
+    <div id="wrapper">
+        <div id="filters">
+            <ul class="option-set" data-option-key="filter">
+                <li><a href="#filter" class="selected" data-option-value="*">All</a></li>
+                <li>/</li>
+                <li><a href="#filter" data-option-value=".nature">Nature</a></li>
+                <li>/</li>
+                <li><a href="#filter" data-option-value=".people">People</a></li>
+                <li>/</li>
+                <li><a href="#filter" data-option-value=".scenery">Scenery</a></li>
+                <li>/</li>
+                <li><a href="#filter" data-option-value=".world">World</a></li>
             </ul>
-            <div class="logo"></div>
         </div>
-    </div>
+        <!-- start: Wall -->
+        <div id="wall" class="row-fluid">
 
-    <!-- Welcome message and buttons -->
-    <div id="welcomeRow" class="row">
-        <div class="span7"></div>
-        <div class="span5" style="float:right">
-            <div class="floating-div">
-                <h1 class="text-right">עיצוב עוגות</h1>
-                <br>
-                <p class="text-right">
-                    עכשיו פשוט לעצב על גבי נייר אכיל, בעזרת השם תהיה אחלה יומולדת שבעולם העוגה תצא בומבה והכל יבוא על מקומו בשלום ונאמר אמן
-                </p>
-                <br>
-                <div class="button-bold btn text-right" onclick="showWizard()">
-                    התחל כאן
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- The decal's builder wizard -->
-    <div id="wizardContainer" class="container">
-
-        <!-- Step I -->
-
-        <!-- An hidden template for theme tile item -->
-        <div id="themeItemWrapper" style="display:none">
-            <div class="theme-item">
-                <img class="theme-img"/>
-            </div>
-        </div>
-
-        <div class="row" style="margin: 0px; padding: 0px;">
-            <ul class="breadcrumb">
-                <li>
-                    הזמנה
-                    <span class="divider"><</span>
-                </li>
-                <li>
-                    עיצוב
-                    <span class="divider"><</span>
-                </li>
-                <li class="active">
-                    בחירת דמות
-                </li>
-            </ul>
-
-            <!-- Step I elements -->
-            <input id="nameFilterInput" type="text" onKeyUp="filterThemes()" placeholder="חפש דמות"
-            style="float:right; margin: 0px;" class="rounded-input-text text-right first-step"/>
-
-            <!-- Step II elements -->
-            <div class="secondary-button btn text-right second-step" style="float:right" onclick="showStep(1);">
-                חזור לבחירת דמות
-            </div>
-            <div class="button btn text-right second-step" style="float:right; margin-right: 20px" onclick="saveDecal()">
-                המשך להזמנה
-            </div>
-
-            <!-- Step III -->
-            <div class="secondary-button btn text-right third-step" style="float:right;" onclick="showStep(2);">
-                חזור לעריכה
-            </div>
-
-        </div>
-
-        <hr>
-
-        <!-- Step I - Select theme -->
-        <div class="first-step" align="right">
-            <div id="themesTileContainer" class="container"></div>
-        </div>
-
-        <!-- Step II - add background, text and design -->
-        <div class="second-step">
-
-            <!-- An hidden template for theme tile item -->
-            <div id="backgroundItemWrapper" style="display:none">
-                <div class="theme-background-item">
-                    <img class="theme-background-img"/>
-                </div>
-            </div>
-            <div class="secondary-button btn" onclick="showBackgrounds();">
-                בחר רקע
-            </div>
-            <div class="secondary-button btn" onclick="showTextEditor();" style="margin-left:20px">
-                הוסף טסקט
-            </div>
-            <!-- Text editor -->
-            <div id="textEditDiv">
-                <form>
-                    <input id="curvedText" style="width: 227px; margin-bottom:10px;" type="text" placeholder="הכנס כיתוב כאן" onkeyup="drawCurvedText()"/>
-                    <br>
-                    <div class="bfh-selectbox bfh-fonts" data-family="Arial">
-                        <input id="curvedTextFont" type="hidden" value="" onchange="drawCurvedText()">
-                        <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#"> <span class="bfh-selectbox-option input-medium" style="width: 193px" data-option=""></span> <b class="caret"></b> </a>
-                        <div class="bfh-selectbox-options">
-                            <!-- for now I don't need a filter -->
-                            <!-- input class="bfh-selectbox-filter" -->
-                            <div role="listbox">
-                                <ul role="option"></ul>
-                            </div>
-                        </div>
+            <div class="span3 nature item">
+                <div class="quotes">
+                    <div class="quote">
+                        ���That���s not what we think design is. It���s not just what it looks like and feels like. Design is how it works���
                     </div>
-                    <input id="curvedTextColor" class="color {onImmediateChange:'drawCurvedText();'}"
-                            type="text" value="000000"/>
-                    <br>
-                    <input id="yearsText" style="width: 227px; margin-bottom:10px;" maxlength="2" type="text" placeholder="בן כמה הקטן" onkeyup="drawYearsText()"/>
-                    <br>
-                    <div class="bfh-selectbox bfh-fonts" data-family="Arial">
-                        <input id="yearsTextFont" type="hidden" value="" onchange="drawYearsText()">
-                        <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#"> <span class="bfh-selectbox-option input-medium" style="width: 193px" data-option=""></span> <b class="caret"></b> </a>
-                        <div class="bfh-selectbox-options">
-                            <!-- for now I don't need a filter -->
-                            <!-- input class="bfh-selectbox-filter" -->
-                            <div role="listbox">
-                                <ul role="option"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <input id="yearsTextColor" class="color {onImmediateChange:'drawYearsText();'} color-selector"
-                            type="text" value="000000"/>
-                    
-                </form>
-            </div>
-            <!-- Background selector -->
-            <div id="backgroundsTileContainerWrapper">
-                <div id="backgroundsTileContainer" style="height: 600px; width: 200px; overflow: hidden; " class="container"></div>
-            </div>
-            <div id="decalCanvasContainer" class="container"></div>
-            
-        </div>
-
-        <!-- Step III - Mailing address and payment -->
-        <div class="third-step" align="right">
-
-            <div class="row">
-                <div class="span4">
-                    <img id="previewDecal" />
-                    <div id="socialShareDiv">
-                        <!-- Pinterest pin button -->
-                        <a id="pinButton" target="_blank" data-pin-do="buttonPin" data-pin-config="above"> <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /> </a>
-                        <!-- Facebook like button will be added here when div become visible, if we add this while div is in display none, the like button will be rendered
-                        with width and height equal to 0 -->
+                    <div class="author">
+                        - Steve Jobs -
                     </div>
                 </div>
-                <div class="span8">
-                    <%= render "payment_form" %>
+            </div>
+
+            <div class="span3 nature people item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo5.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <%= render "auth_forms" %>
+            <div class="span3 people item">
+                <div class="quotes">
+                    <div class="quote">
+                        ���In most people���s vocabularies, design means veneer. It���s interior decorating. It���s the fabric of the curtains of the sofa. But to me, nothing could be further from the meaning of design. Design is the fundamental soul of a human-made creation that ends up expressing itself in successive outer layers of the product or service.���
+                    </div>
+                    <div class="author">
+                        - Steve Jobs -
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 people item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo1.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo9.jpg" alt=""/></a>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo2.jpg" alt=""/></a>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo3.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo4.jpg" alt=""/></a>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="flex-video">
+                    <iframe src="http://player.vimeo.com/video/48502577?portrait=0&color=ffffff" width="480" height="256" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo6.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo7.jpg" alt=""/></a>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo8.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item scenery">
+                <div class="quotes">
+                    <div class="quote">
+                        ���Innovation distinguishes between a leader and a follower.���
+                    </div>
+                    <div class="author">
+                        - Steve Jobs -
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="quotes">
+                    <div class="quote">
+                        ���Visual design is often the polar opposite of engineering: trading hard edges for subjective decisions based on gut feelings and personal experiences. It���s messy, unpredictable, and notoriously hard to measure. The apparently erratic behavior of artists drives engineers bananas. Their decisions seem arbitrary and risk everything with no guaranteed benefit.���
+                    </div>
+                    <div class="author">
+                        - Scott Stevenson -
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo10.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo11.jpg" alt=""/></a>
+                    <div class="description">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        </p>
+                    </div>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3 item">
+                <div class="picture">
+                    <a class="image" href="project.html" title="Title"><img src="img/photo12.jpg" alt=""/></a>
+                    <div class="meta">
+                        <span><i class="icon-calendar"></i>1 June 2011</span>
+                        <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                        <span><i class="icon-heart-empty"></i> 88</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end: Wall -->
+
+    </div>
+    <!--end: Container-->
+
 </div>
-
-<!-- this Facebook button is here but will eventually be injected into #socialShareDiv -->
-<div style="visibility:hidden" class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="true" data-send="false"></div>
-
+<!-- end: Wrapper  -->
