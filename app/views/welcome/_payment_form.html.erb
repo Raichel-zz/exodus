@@ -1,0 +1,76 @@
+<div class=".payment-errors"></div>
+
+<form action="/decals/make_payment" method="post" id="payment-form" onsubmit="onPaymentSubmit();return false;">
+
+    <div class="row">
+        <div class="span4">
+            <h1>כתובת למשלוח</h1>
+            <br><br>
+            <div class="formset">
+                <input name="full_name" type="text" size="20" placeholder="שם הנמען"/>
+            </div>
+            <br>
+            <div class="formset">
+                <input name="address" type="text" size="20" placeholder="כתובת מלאה"/>
+            </div>
+            <br>
+            <div class="formset">
+                <input name="phone_number" type="text" size="20" placeholder="מספר טלפון"/>
+            </div>
+            <br><br><br><br>
+            <button type="submit" class="payment_submit button-bold btn">
+                שלח
+            </button>
+        
+        </div>
+        <div class="span4">
+            <h1>פרטי תשלום</h1>
+            <br><br>
+            <div class="formset">
+                <input name="first_name" type="text" size="20" placeholder="שם פרטי, כפי שמופיע על גבי הכרטיס"/>
+            </div>
+            <br>
+            <div class="formset">
+                <input name="last_name" type="text" size="20" placeholder="שם משפחה, כפי שמופיע על גבי הכרטיס"/>
+            </div>
+            <br>
+            <div class="formset">
+                <input name="card_number" type="text" size="20" autocomplete="off" class="credit-number" placeholder="מספר כרטיס האשראי"/>
+            </div>
+            <br>
+            <div class="formset">
+                <input name="cvc" type="text" size="4" autocomplete="off" class="credit-security" placeholder="מופיע בגב הכרטיס CVC"/>
+            </div>
+            <br>
+            <div class="formset">
+                <label>תוקף הכרטיס</label>
+                <select name="expiration_month" style="width:100px">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <span> / </span>
+                <select name="expiration_year" style="width:100px">
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>

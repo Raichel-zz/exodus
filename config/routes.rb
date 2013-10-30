@@ -1,6 +1,7 @@
 Genesis::Application.routes.draw do
 
   get "welcome/index"
+  get "welcome/about"
   root to: "welcome#index"
   
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout", sign_up: "signup"},

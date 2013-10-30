@@ -52,8 +52,8 @@
                                 <li class="<%= 'active' if current_page?(root_path) %>">
                                     <%= link_to('Home', root_path)  %>
                                 </li>
-                                <li class="<%= 'active' if current_page?(root_path) %>">
-                                    <a href="about.html">About</a>
+                                <li class="<%= 'active' if current_page?(welcome_about_path) %>">
+                                    <%= link_to('About', welcome_about_path)  %>
                                 </li>      
                                 <li class="<%= 'active' if current_page?(new_user_session_path) %>">
                                     <%= link_to('Login', new_user_session_path)  %> 
