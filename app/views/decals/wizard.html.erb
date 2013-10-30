@@ -33,10 +33,24 @@
 
     <!-- An hidden template for theme tile item -->
     <div id="themeItemWrapper" style="display:none">
-        <div class="theme-item">
-            <img class="theme-img"/>
+        <div class="span3 nature people theme-item">
+            <div class="picture">
+                <img class="theme-img"/>
+                <div class="description">
+                    <p>
+                        A short description of the theme.
+                    </p>
+                </div>
+                <div class="meta">
+                    <span><i class="icon-calendar"></i>1 June 2011</span>
+                    <span><i class="icon-user"></i> <a href="#">lucas</a></span>
+                    <span><i class="icon-heart-empty"></i> 88</span>
+                </div>
+            </div>
         </div>
     </div>
+    
+    
 
     <div class="row" style="margin: 0px; padding: 0px;">
         <ul class="breadcrumb">
@@ -76,7 +90,7 @@
 
     <!-- Step I - Select theme -->
     <div class="first-step" align="right">
-        <div id="themesTileContainer" class="container"></div>
+        <div id="themesTileContainer" class="row-fluid"></div>
     </div>
 
     <!-- Step II - add background, text and design -->

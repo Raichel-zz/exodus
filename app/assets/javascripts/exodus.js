@@ -4,38 +4,22 @@ var columns = null;
 $(document).ready(function() {
 	// Check if user is logged in
 	if (window.current_user) {
-		$("#welcomeGreeting").text(window.current_user.email);
 		$(".onlyForLoggedOutUser").css("display", "none");
 		$(".onlyForLoggedInUser").css("display", "inline");
 	} else {
 		$(".onlyForLoggedOutUser").css("display", "inline");
 		$(".onlyForLoggedInUser").css("display", "none");
 	}
-	$(window).resize(renderScreen).resize(); // trigger resize to position
-	// screen containers
-
-	if (window.current_user) {
-		showWizard(true);
-	}
-});
-
-function showScreenBlanket() {
-	if ($(".screen-blanket").length == 0) {
-		$(document.body).append($("<div class='screen-blanket'></div>"));
-	}
-	$(".screen-blanket").css({
-		width : $(window).width(),
-		height : $(window).height(),
-		display : "inline"
+	// Prevent the user from saving our images and edited canvas
+	$('body').on('contextmenu', 'canvas', function(e) {
+		return false;
 	});
-	$(".screen-blanket").click(hideScreenBlanket);
-}
+	$('body').on('contextmenu', 'img', function(e) {
+		return false;
+	});
 
-function hideScreenBlanket() {
-	if ($(".screen-blanket")) {
-		$(".screen-blanket").remove();
-	}
-}
+	showWizard(true);
+});
 
 function logout() {
 	// submit as ajax
@@ -56,23 +40,6 @@ function logout() {
 			$(location).attr("href", $(location).attr('href'));
 		}
 	});
-}
-
-function showLogin() {
-	// Remove any blanket that may be visible
-	hideScreenBlanket();
-	showScreenBlanket();
-	$(".screen-blanket").append($(".loginDivContainer").html());
-	$(".loginDiv").click(function(event) {
-		event.stopPropagation();
-	});
-	$(".loginDiv").css(
-			{
-				left : ($(".screen-blanket").outerWidth() / 2)
-						- ($(".loginDiv").outerWidth() / 2),
-				top : ($(".screen-blanket").outerHeight() / 2)
-						- ($(".loginDiv").outerHeight() / 2)
-			});
 }
 
 function login() {
@@ -98,23 +65,6 @@ function login() {
 				error : function() {
 					// Put your error code here
 				}
-			});
-}
-
-function showSignup() {
-	// Remove any blanket that may be visible
-	hideScreenBlanket();
-	showScreenBlanket();
-	$(".screen-blanket").append($(".signupDivContainer").html());
-	$(".signupDiv").click(function(event) {
-		event.stopPropagation();
-	});
-	$(".signupDiv").css(
-			{
-				left : ($(".screen-blanket").outerWidth() / 2)
-						- ($(".signupDiv").outerWidth() / 2),
-				top : ($(".screen-blanket").outerHeight() / 2)
-						- ($(".signupDiv").outerHeight() / 2)
 			});
 }
 
@@ -152,41 +102,6 @@ function setCurrentUser(user) {
 	$(".onlyForLoggedOutUser").css("display", "none");
 	$(".onlyForLoggedInUser").css("display", "inline");
 	$("#welcomeGreeting").text(window.current_user.email);
-}
-
-function renderScreen() {
-	// Main container height
-	// $(".main-container").css("height", $window.height());
-
-	// Prevent the user from saving our images and edited canvas
-	$('body').on('contextmenu', 'canvas', function(e) {
-		return false;
-	});
-	$('body').on('contextmenu', 'img', function(e) {
-		return false;
-	});
-	// Set the background div size to cover the window
-	var $window = $(window);
-	$('#backgroundDiv').width($window.outerWidth());
-	$('#backgroundDiv').height($window.outerHeight());
-
-	// check if columns has changed
-	var currentColumns = Math
-			.floor(($('#wizardContainer').width() - 10) / colW);
-	if (currentColumns !== columns) {
-		// set new column count
-		columns = currentColumns;
-		// apply width to container manually,
-		// then trigger relayout
-		$('#themesTileContainer').width(columns * colW);
-	}
-	// resize the blanket if there is one visible
-	if ($(".screen-blanket").length > 0) {
-		$(".screen-blanket").css({
-			width : $(window).width(),
-			height : $(window).height()
-		});
-	}
 }
 
 function filterThemes() {
@@ -298,15 +213,7 @@ function renderThemesTileView() {
 
 		$(".theme-item").css("display", "inline");
 		// Themes view layout manager
-		$("#themesTileContainer").isotope({
-			// Options
-			itemSelector : '.theme-item',
-			layoutMode : 'cellsByRow',
-			cellsByRow : {
-				columnWidth : colW,
-				rowHeight : rowH
-			}
-		});
+		applyIsotope($("#themesTileContainer"), ".theme-item");
 	});
 }
 
@@ -352,25 +259,12 @@ function showStep(index) {
 	}
 }
 
-function showWizard(skipAnimation) {
+function showWizard() {
 	showStep(1);
 	// Load themes and render their tile view
 	renderThemesTileView();
-	var duration = (skipAnimation ? 0 : 500);
-	$("#backgroundDiv").animate({
-		// left: ["-2000","swing"],
-		opacity : "0",
-	}, duration, function() {
-		$(".navbar").css("visibility", "visible");
-		$("#wizardContainer").css("display", "block");
-	});
-	$("#welcomeRow").animate({
-		// left: ["-2000","swing"],
-		opacity : "0",
-	}, duration, function() {
-		$("#welcomeRow").css("display", "none");
-	});
-
+	$(".navbar").css("visibility", "visible");
+	$("#wizardContainer").css("display", "block");
 }
 
 function drawCurvedText() {

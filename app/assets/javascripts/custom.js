@@ -452,12 +452,9 @@ jQuery(document).ready(function($){
 
 /* -------------------- Isotope --------------------- */
 
-jQuery(document).ready(function () {
+function applyIsotope($container, itemSelector) {
 	
-	$('#wall').imagesLoaded(function() {
-		
-		var $container = $('#wall');
-			$select = $('#filters select');
+		var $select = $('#filters select');
 
 		// initialize Isotope
 		$container.isotope({
@@ -478,7 +475,7 @@ jQuery(document).ready(function () {
 
 
 		$container.isotope({
-			itemSelector : '.item'
+			itemSelector : itemSelector
 		});
 
 		$select.change(function() {
@@ -524,9 +521,7 @@ jQuery(document).ready(function () {
 			
 		  });
 		
-	});
-	
-});
+}
 
 /* ------------------ Tabs ----------------- */
 

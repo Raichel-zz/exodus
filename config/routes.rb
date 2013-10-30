@@ -1,8 +1,9 @@
 Genesis::Application.routes.draw do
 
-  get "welcome/index"
-  get "welcome/about"
-  root to: "welcome#index"
+  get "main/index"
+  get "main/about"
+  get "decals/wizard"
+  root to: "main#index"
   
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout", sign_up: "signup"},
   controllers: {sessions: 'sessions', omniauth_callbacks: "omniauth_callbacks", registrations: "registrations"}

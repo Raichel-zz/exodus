@@ -13,5 +13,5 @@
 // require turbolinks
 
 //= require "jquery-1.10.1.min.js"
-//= require_tree .
 //= require_tree ../../../vendor/assets/javascripts/.
+//= require_tree .
