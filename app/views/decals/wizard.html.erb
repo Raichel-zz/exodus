@@ -1,0 +1,235 @@
+
+<!-- <div class="navbar" style="visibility: hidden">
+    <div class="container">
+        <ul class="nav">
+            <li>
+                <a id="editUserAccountLink" href='<%= edit_user_registration_path%>'></a>
+            </li>
+            <li class="onlyForLoggedInUser text-right">
+                <a id="welcomeGreeting"></a>
+            </li>
+            <li class="onlyForLoggedInUser text-right">
+                <a onclick="logout()" style="cursor: pointer; padding:10px 0px">יציאה</a>
+            </li>
+            <li class="onlyForLoggedOutUser text-right">
+                <a onclick="showLogin()" style="cursor: pointer">כניסה</a>
+            </li>
+            <li class="onlyForLoggedOutUser text-right">
+                <a onclick="showSignup()" style="cursor: pointer">הרשמה</a>
+            </li>
+            <li class="onlyForLoggedOutUser text-right">
+                <div id="facebook-connect"></div>
+            </li>
+        </ul>
+        <div class="logo"></div>
+    </div>
+</div> -->
+
+
+<!-- The decal's builder wizard -->
+<div id="wizardContainer" class="container">
+
+    <!-- Step I -->
+
+    <!-- An hidden template for theme tile item -->
+    <div id="themeItemWrapper" style="display:none">
+        <div class="theme-item">
+            <img class="theme-img"/>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 0px; padding: 0px;">
+        <ul class="breadcrumb">
+            <li>
+                הזמנה
+                <span class="divider"><</span>
+            </li>
+            <li>
+                עיצוב
+                <span class="divider"><</span>
+            </li>
+            <li class="active">
+                בחירת דמות
+            </li>
+        </ul>
+
+        <!-- Step I elements -->
+        <input id="nameFilterInput" type="text" onKeyUp="filterThemes()" placeholder="חפש דמות"
+        style="float:right; margin: 0px;" class="rounded-input-text text-right first-step"/>
+
+        <!-- Step II elements -->
+        <div class="secondary-button btn text-right second-step" style="float:right" onclick="showStep(1);">
+            חזור לבחירת דמות
+        </div>
+        <div class="button btn text-right second-step" style="float:right; margin-right: 20px" onclick="saveDecal()">
+            המשך להזמנה
+        </div>
+
+        <!-- Step III -->
+        <div class="secondary-button btn text-right third-step" style="float:right;" onclick="showStep(2);">
+            חזור לעריכה
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Step I - Select theme -->
+    <div class="first-step" align="right">
+        <div id="themesTileContainer" class="container"></div>
+    </div>
+
+    <!-- Step II - add background, text and design -->
+    <div class="second-step">
+
+        <!-- An hidden template for theme tile item -->
+        <div id="backgroundItemWrapper" style="display:none">
+            <div class="theme-background-item">
+                <img class="theme-background-img"/>
+            </div>
+        </div>
+        <div class="secondary-button btn" onclick="showBackgrounds();">
+            בחר רקע
+        </div>
+        <div class="secondary-button btn" onclick="showTextEditor();" style="margin-left:20px">
+            הוסף טסקט
+        </div>
+        <!-- Text editor -->
+        <div id="textEditDiv">
+            <form>
+                <input id="curvedText" style="width: 227px; margin-bottom:10px;" type="text" placeholder="הכנס כיתוב כאן" onkeyup="drawCurvedText()"/>
+                <br>
+                <div class="bfh-selectbox bfh-fonts" data-family="Arial">
+                    <input id="curvedTextFont" type="hidden" value="" onchange="drawCurvedText()">
+                    <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#"> <span class="bfh-selectbox-option input-medium" style="width: 193px" data-option=""></span> <b class="caret"></b> </a>
+                    <div class="bfh-selectbox-options">
+                        <!-- for now I don't need a filter -->
+                        <!-- input class="bfh-selectbox-filter" -->
+                        <div role="listbox">
+                            <ul role="option"></ul>
+                        </div>
+                    </div>
+                </div>
+                <input id="curvedTextColor" class="color {onImmediateChange:'drawCurvedText();'}"
+                type="text" value="000000"/>
+                <br>
+                <input id="yearsText" style="width: 227px; margin-bottom:10px;" maxlength="2" type="text" placeholder="בן כמה הקטן" onkeyup="drawYearsText()"/>
+                <br>
+                <div class="bfh-selectbox bfh-fonts" data-family="Arial">
+                    <input id="yearsTextFont" type="hidden" value="" onchange="drawYearsText()">
+                    <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#"> <span class="bfh-selectbox-option input-medium" style="width: 193px" data-option=""></span> <b class="caret"></b> </a>
+                    <div class="bfh-selectbox-options">
+                        <!-- for now I don't need a filter -->
+                        <!-- input class="bfh-selectbox-filter" -->
+                        <div role="listbox">
+                            <ul role="option"></ul>
+                        </div>
+                    </div>
+                </div>
+                <input id="yearsTextColor" class="color {onImmediateChange:'drawYearsText();'} color-selector"
+                type="text" value="000000"/>
+
+            </form>
+        </div>
+        <!-- Background selector -->
+        <div id="backgroundsTileContainerWrapper">
+            <div id="backgroundsTileContainer" style="height: 600px; width: 200px; overflow: hidden; " class="container"></div>
+        </div>
+        <div id="decalCanvasContainer" class="container"></div>
+
+    </div>
+
+    <!-- Step III - Mailing address and payment -->
+    <div class="third-step" align="right">
+
+        <div class="row">
+            <div class="span4">
+                <img id="previewDecal" />
+                <div id="socialShareDiv">
+                    <!-- Pinterest pin button -->
+                    <a id="pinButton" target="_blank" data-pin-do="buttonPin" data-pin-config="above"> <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /> </a>
+                    <!-- Facebook like button will be added here when div become visible, if we add this while div is in display none, the like button will be rendered
+                    with width and height equal to 0 -->
+                </div>
+            </div>
+            <div class="span8">
+                <div class=".payment-errors"></div>
+
+                    <form action="/decals/make_payment" method="post" id="payment-form" onsubmit="onPaymentSubmit();return false;">
+                    
+                        <div class="row">
+                            <div class="span4">
+                                <h1>���������� ������������</h1>
+                                <br><br>
+                                <div class="formset">
+                                    <input name="full_name" type="text" size="20" placeholder="���� ����������"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <input name="address" type="text" size="20" placeholder="���������� ��������"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <input name="phone_number" type="text" size="20" placeholder="�������� ����������"/>
+                                </div>
+                                <br><br><br><br>
+                                <button type="submit" class="payment_submit button-bold btn">
+                                    ������
+                                </button>
+                            
+                            </div>
+                            <div class="span4">
+                                <h1>�������� ����������</h1>
+                                <br><br>
+                                <div class="formset">
+                                    <input name="first_name" type="text" size="20" placeholder="���� ��������, ������ ������������ ���� ������ ������������"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <input name="last_name" type="text" size="20" placeholder="���� ����������, ������ ������������ ���� ������ ������������"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <input name="card_number" type="text" size="20" autocomplete="off" class="credit-number" placeholder="�������� ���������� ������������"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <input name="cvc" type="text" size="4" autocomplete="off" class="credit-security" placeholder="���������� ������ ������������ CVC"/>
+                                </div>
+                                <br>
+                                <div class="formset">
+                                    <label>�������� ������������</label>
+                                    <select name="expiration_month" style="width:100px">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    <span> / </span>
+                                    <select name="expiration_year" style="width:100px">
+                                        <option value="2014">2014</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,10 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916211225) do
+ActiveRecord::Schema.define(version: 20130924022857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: true do |t|
+    t.string   "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "token_secret"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "backgrounds", force: true do |t|
+    t.string   "name"
+    t.string   "file_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "backgrounds_themes", id: false, force: true do |t|
+    t.integer "background_id"
+    t.integer "theme_id"
+  end
+
+  add_index "backgrounds_themes", ["background_id", "theme_id"], name: "index_backgrounds_themes_on_background_id_and_theme_id", using: :btree
+
+  create_table "decals", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "theme_id"
+    t.integer  "theme_x"
+    t.integer  "theme_y"
+    t.integer  "background_id"
+    t.string   "main_text"
+    t.string   "sub_text"
+    t.string   "file_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "themes", force: true do |t|
+    t.string   "name"
+    t.string   "file_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

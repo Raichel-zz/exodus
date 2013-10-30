@@ -3,7 +3,7 @@ var columns = null;
 
 $(document).ready(function() {
 	// Check if user is logged in
-	/*if (window.current_user) {
+	if (window.current_user) {
 		$("#welcomeGreeting").text(window.current_user.email);
 		$(".onlyForLoggedOutUser").css("display", "none");
 		$(".onlyForLoggedInUser").css("display", "inline");
@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 	if (window.current_user) {
 		showWizard(true);
-	}*/
+	}
 });
 
 function showScreenBlanket() {
