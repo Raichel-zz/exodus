@@ -1,4 +1,4 @@
-Genesis::Application.routes.draw do
+Exodus::Application.routes.draw do
 
   get "main/index"
   get "main/about"

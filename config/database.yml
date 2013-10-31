@@ -17,7 +17,7 @@ development:
 test:
   adapter: postgresql
   encoding: utf8
-  database: genesis_test
+  database: exodus_test
   pool: 5
   username: eran
   password: raichel

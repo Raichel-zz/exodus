@@ -58,11 +58,14 @@
                                 <li class="<%= 'active' if current_page?(main_about_path) %>">
                                     <%= link_to('About', main_about_path)  %>
                                 </li>      
-                                <li class="<%= 'active' if current_page?(new_user_session_path) %>">
+                                <li class="<%= 'active' if current_page?(new_user_session_path) %> onlyForLoggedOutUser">
                                     <%= link_to('Login', new_user_session_path)  %> 
                                 </li>
-                                <li class="<%= 'active' if current_page?(new_user_registration_path) %>">
+                                <li class="<%= 'active' if current_page?(new_user_registration_path) %> onlyForLoggedOutUser">
                                     <%= link_to('Register', new_user_registration_path)  %>
+                                </li>      
+                                <li class="onlyForLoggedInUser">
+                                    <a id="greeting" href="" onclick="logout(); return false;"></a>
                                 </li>
                             </ul>
                         </div>
@@ -209,8 +212,16 @@
     </script>
     <!-- keep authenticity token -->
     <script language="javascript">
+    
+        window.setCurrentUser = function(user){
+            window.current_user = user;
+            $(".onlyForLoggedOutUser").css("display", "none");
+            $(".onlyForLoggedInUser").css("display", "inline");
+            $("#greeting").text("Logout " + user.email);
+        };
+
         <% if user_signed_in? %>
-            current_user = {id:"<%= current_user.id%>", email:"<%= current_user.email %>"};
+            setCurrentUser({id:"<%= current_user.id%>", email:"<%= current_user.email %>"});
         <% end %></script>
     <%= javascript_tag "window._token = '#{form_authenticity_token}';" %>
     <!-- end: javascript -->
@@ -225,7 +236,7 @@
         window.fbAsyncInit = function() {
             // init the FB JS SDK
             FB.init({appId      : '<%= Facebook::APP_ID%>', // App ID from the App Dashboard
-                channelUrl : '//www.chompale.COM/channel.html', // Channel File for x-domain communication
+                channelUrl : '//www.chompalea.COM/channel.html', // Channel File for x-domain communication
                 status     : true, // check the login status upon init?
                 cookie     : true, // set sessions cookies to allow your server to access the session?
                 xfbml      : true  // parse XFBML tags on this page?
@@ -242,7 +253,7 @@
         }(document, /*debug*/ false));
     
         $(function() {
-            $('.facebook-connect').click(function(e) {
+            $('.facebook_connect').click(function(e) {
                 e.preventDefault();
     
                 FB.login(function(response) {

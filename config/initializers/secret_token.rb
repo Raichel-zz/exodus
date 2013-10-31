@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Genesis::Application.config.secret_key_base = '63897c30be4b8cd797ce7252dc31f22f0463de8afebfa0e5451c71ecaec77c665099f40633a488a7fc09b3cbc252bea03a6e3492c1441087124b45c884a187ba'
+Exodus::Application.config.secret_key_base = '63897c30be4b8cd797ce7252dc31f22f0463de8afebfa0e5451c71ecaec77c665099f40633a488a7fc09b3cbc252bea03a6e3492c1441087124b45c884a187ba'

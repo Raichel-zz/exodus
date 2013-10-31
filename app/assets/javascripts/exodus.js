@@ -1,15 +1,4 @@
-var colW = 200, rowH = 200;
-var columns = null;
-
 $(document).ready(function() {
-	// Check if user is logged in
-	if (window.current_user) {
-		$(".onlyForLoggedOutUser").css("display", "none");
-		$(".onlyForLoggedInUser").css("display", "inline");
-	} else {
-		$(".onlyForLoggedOutUser").css("display", "inline");
-		$(".onlyForLoggedInUser").css("display", "none");
-	}
 	// Prevent the user from saving our images and edited canvas
 	$('body').on('contextmenu', 'canvas', function(e) {
 		return false;
@@ -97,13 +86,6 @@ function signup() {
 			});
 }
 
-function setCurrentUser(user) {
-	window.current_user = user;
-	$(".onlyForLoggedOutUser").css("display", "none");
-	$(".onlyForLoggedInUser").css("display", "inline");
-	$("#welcomeGreeting").text(window.current_user.email);
-}
-
 function filterThemes() {
 	var filter = "";
 	if ($("#nameFilterInput").val().trim() != "") {
@@ -156,22 +138,9 @@ function showBackgroundsTileView(backgrounds) {
 	}
 
 	$(".theme-background-item").css("display", "inline");
-	// Themes view layout manager
-	$("#backgroundsTileContainer").isotope({
-		// Options
-		itemSelector : '.theme-background-item',
-		layoutMode : 'cellsByColumn',
-		cellsByColumn : {
-			columnWidth : colW,
-			rowHeight : rowH
-		}
-	});
 }
 
 function clearBackgroundsContainer() {
-	if ($("#backgroundsTileContainer").hasClass('isotope')) {
-		$("#backgroundsTileContainer").isotope("destroy");
-	}
 	$("#backgroundsTileContainer").empty();
 }
 
