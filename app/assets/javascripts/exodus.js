@@ -111,7 +111,7 @@ function filterThemes() {
 	} else {
 		filter = "*";
 	}
-	$('#themesTileContainer').isotope({
+	$('#wall').isotope({
 		filter : filter
 	});
 }
@@ -211,23 +211,25 @@ function renderThemesTileView() {
 			populateThemeTile(data[i]);
 		}
 
-		$(".theme-item").css("display", "inline");
+		//$(".theme-item").css("display", "inline");
 		// Themes view layout manager
-		applyIsotope($("#themesTileContainer"), ".theme-item");
+		$("#wall").imagesLoaded(function() {
+			applyIsotope();
+		});
 	});
 }
 
 function clearThemesContainer() {
-	if ($("#themesTileContainer").hasClass('isotope')) {
-		$("#themesTileContainer").isotope("destroy");
+	if ($("#wall").hasClass('isotope')) {
+		$("#wall").isotope("destroy");
 	}
-	$("#themesTileContainer").empty();
+	$("#wall").empty();
 }
 
 function populateThemeTile(theme) {
 	var themeItem;
-	$("#themesTileContainer").append($("#themeItemWrapper").html());
-	themeItem = $(".theme-item:last", $("#themesTileContainer"));
+	$("#wall").append($("#themeItemWrapper").html());
+	themeItem = $(".item:last", $("#wall"));
 
 	themeItem.attr({
 		"alt" : theme.name.toLowerCase()
@@ -261,10 +263,11 @@ function showStep(index) {
 
 function showWizard() {
 	showStep(1);
-	// Load themes and render their tile view
-	renderThemesTileView();
+
 	$(".navbar").css("visibility", "visible");
 	$("#wizardContainer").css("display", "block");
+	// Load themes and render their tile view
+	renderThemesTileView();
 }
 
 function drawCurvedText() {

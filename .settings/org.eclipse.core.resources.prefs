@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//app/assets/javascripts/custom.js=UTF-8
 encoding//app/views/decals/wizard.html.erb=UTF-8
 encoding//app/views/layouts/application.html.erb=UTF-8
 encoding//app/views/main/index.html.erb=UTF-8
